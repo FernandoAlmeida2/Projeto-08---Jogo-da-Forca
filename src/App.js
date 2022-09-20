@@ -14,6 +14,7 @@ export default function App(){
     let arrayPalavra = [];
     const [iniciouJogo, mudaIniciouJogo] = useState(false);
     const [habilitaTeclas, mudaHabilitaTeclas] = useState(false);
+    const [habilitaInput, mudaHabilitaInput] = useState(true)
 
     function RenderizaTeclas(props) {
         const [teclasCor, mudaTeclasCor] = useState(props.estado);
@@ -42,6 +43,7 @@ export default function App(){
             onClick={() => {
               mudaIniciouJogo(true);
               mudaHabilitaTeclas(true);
+              mudaHabilitaInput(false);
             }}
           >
             Escolher Palavra
@@ -62,7 +64,7 @@ export default function App(){
         </section>
         <section className="chute">
           Já sei a palavra!
-          <input></input>
+          <input type="text" disabled={habilitaInput}></input>
           <button>Chutar</button>
         </section>
       </main>
