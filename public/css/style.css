@@ -16,7 +16,6 @@ main{
  
 }
 
-
 .jogo button{
     width: 12vw;
     height: 7vh;
@@ -28,6 +27,20 @@ main{
     font-weight: bold;
     font-size: 1.1vw;
 }
+
+.jogo ul{
+    display:flex;
+    position:fixed;
+    right:30vw;
+    bottom: 16vw;
+}
+
+.jogo li{
+    margin: 0 .3vw 0 .3vw;
+    font-weight: bold;
+    font-size: 2vw;
+}
+
 .teclas{
     display:flex;
     justify-content: center;
@@ -46,13 +59,21 @@ main{
     height: 2.5vw;
     border-radius: 0.5vw;
     margin: 0.25vw;
-    background-color: #9FAAB5;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #787F88;
     font-weight: bold;
     font-size:1vw;
+}
+
+.desabilitado{
+    background-color: #9FAAB5;
+    color: #787F88;
+}
+
+.habilitado{
+    background-color: #E1ECF4;
+    color: #2F679A;
 }
 
 .chute{
@@ -73,6 +94,13 @@ main{
     font-size: 1vw;
     background-color: #E1ECF4;
     color: #2F679A;
-    border: 0.1vw solid #407aaf;
+    border: 0.1vw solid #5c99d3;
     border-radius: 0.4vw;
+}
+
+.lado-direito{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
