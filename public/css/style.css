@@ -1,0 +1,78 @@
+
+main{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.jogo{
+    width: 50%;
+    height: 60%;
+    display: flex;
+    justify-content: space-between;
+    margin: 4% 0 3% 0;
+ 
+}
+
+
+.jogo button{
+    width: 12vw;
+    height: 7vh;
+    border-radius: 0.5vw;
+    border:none;
+    background-color: #27AE60;
+    margin: 4vh 5vw 0 0;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1vw;
+}
+.teclas{
+    display:flex;
+    justify-content: center;
+}
+
+.teclas ul{
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-right: 2vw;
+}
+
+.teclas li{
+    width: 2.5vw;
+    height: 2.5vw;
+    border-radius: 0.5vw;
+    margin: 0.25vw;
+    background-color: #9FAAB5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #787F88;
+    font-weight: bold;
+    font-size:1vw;
+}
+
+.chute{
+    margin-top: 2vw;
+    font-size: 1.1vw;
+    margin-right: 2vw;
+}
+.chute input{
+    height: 1.8vw;
+    width: 20vw;
+    margin: 0 1vw 0 1vw;
+    border-radius: 0.4vw;
+}
+.chute button{
+    height: 2.7vw;
+    width: 5vw;
+    font-weight: bold;
+    font-size: 1vw;
+    background-color: #E1ECF4;
+    color: #2F679A;
+    border: 0.1vw solid #407aaf;
+    border-radius: 0.4vw;
+}
