@@ -32,7 +32,7 @@ function verificaResultado() {
 }
 
 export default function App(){
-    const [habilitaInput, mudaHabilitaInput] = useState(true);
+    const [desabilitaInput, mudaEstadoInput] = useState(true);
     const [resultado, mostraResultado] = useState("");
     const [valorChutado, escreveChute] = useState("");
     const [teclasClicadas, incluiTecla] = useState([]);
@@ -42,7 +42,7 @@ export default function App(){
     }
    
     function RenderizaTeclas(props) {
-        const letra = props.letra.toLowerCase();
+        const {letra, indice} = props;
         function verificaTecla(tecla){
             if(!teclasClicadas.includes(tecla)){
                 if(!arrayPalavra.join("").normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(tecla))
@@ -52,15 +52,17 @@ export default function App(){
         }
         return (
           <li
-            key={letra}
+            key={indice}
+            data-identifier="letter"
             className={
-              teclasClicadas.includes(letra) ||
-              inicioDoJogo === true
+              teclasClicadas.includes(letra.toLowerCase()) ||
+              inicioDoJogo === true ||
+              resultado !== ""
                 ? "desabilitado"
                 : "habilitado"
             }
             onClick={() => {
-              verificaTecla(letra);
+              verificaTecla(letra.toLowerCase());
             }}
           >
             {letra}
@@ -75,27 +77,31 @@ export default function App(){
       incluiTecla([]);
       arrayPalavra = sorteiaPalavra()
       arrayPalavra.forEach(() => arrayEstadoJogo.push("_"));
-      mudaHabilitaInput(false);
-      escreveChute("")
+      mudaEstadoInput(false);
       mostraResultado("")
+    }
+
+    function fimDoJogo(){
+      escreveChute("")
+      mudaEstadoInput(true)
     }
 
     function CarregaImagem(){
       switch(numErros){
         case 0:
-          return <img src={imgInicial} alt="Layout inicial jogo da forca"/>
+          return <img data-identifier="game-image" src={imgInicial} alt="Layout inicial jogo da forca"/>
         case 1:
-          return <img src={img1} alt="Cometeu 1 erro!"/>
+          return <img data-identifier="game-image" src={img1} alt="Cometeu 1 erro!"/>
         case 2:
-          return <img src={img2} alt="Cometeu 2 erros!"/>
+          return <img data-identifier="game-image" src={img2} alt="Cometeu 2 erros!"/>
         case 3:
-          return <img src={img3} alt="Cometeu 3 erros!"/>
+          return <img data-identifier="game-image" src={img3} alt="Cometeu 3 erros!"/>
         case 4:
-          return <img src={img4} alt="Cometeu 4 erros!"/>
+          return <img data-identifier="game-image" src={img4} alt="Cometeu 4 erros!"/>
         case 5:
-          return <img src={img5} alt="Cometeu 5 erros!"/>
+          return <img data-identifier="game-image" src={img5} alt="Cometeu 5 erros!"/>
         default:
-          return <img src={img6} alt="Cometeu 6 erros! Você perdeu!"/>
+          return <img data-identifier="game-image" src={img6} alt="Cometeu 6 erros! Você perdeu!"/>
       }
     }
 
@@ -109,41 +115,57 @@ export default function App(){
 
         rows.push(<li key={i}>{ resultado === "" ? arrayEstadoJogo[i] : arrayPalavra[i]}</li>);
       }
-      if(verificaResultado() === true)
+      if(verificaResultado() === true){
+          fimDoJogo()
           mostraResultado("ganhou")
+      }
+          
       if(numErros > 5){
+          fimDoJogo()
           mostraResultado("perdeu")
       }
-      return <ul className={resultado}>{rows}</ul>
+      return <ul data-identifier="word" className={resultado}>{rows}</ul>
     }
 
 
     function verificaChute(){
+      fimDoJogo()
       if(arrayPalavra.join("") === valorChutado)
         mostraResultado("ganhou")
-        else
+
+        else{
+          numErros = 6
           mostraResultado("perdeu")
+        }
     }
 
     return (
       <main>
         <section className="jogo">
-          <CarregaImagem/>
+          <CarregaImagem />
 
-          <button onClick={iniciaJogo}>
+          <button data-identifier="choose-word" onClick={iniciaJogo}>
             Escolher Palavra
           </button>
-          {inicioDoJogo === false ? <CarregaPalavra/> : <ul></ul>}
+          {inicioDoJogo === false ? <CarregaPalavra /> : <ul></ul>}
         </section>
         <section className="teclas">
           <ul>
-            {alfabeto.map((letra) => (<RenderizaTeclas letra={letra} />))} 
+            {alfabeto.map((letra, index) => (
+              <RenderizaTeclas letra={letra} indice={index} />
+            ))}
           </ul>
         </section>
         <section className="chute">
           Já sei a palavra!
-          <input type="text" value={valorChutado} onChange={(e) => escreveChute(e.target.value)} disabled={habilitaInput}></input>
-          <button onClick={verificaChute}>Chutar</button>
+          <input
+            data-identifier="type-guess"
+            type="text"
+            value={valorChutado}
+            onChange={(e) => escreveChute(e.target.value)}
+            disabled={desabilitaInput}
+          ></input>
+          <button data-identifier="guess-button" onClick={verificaChute}>Chutar</button>
         </section>
       </main>
     );
