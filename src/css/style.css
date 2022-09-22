@@ -104,3 +104,11 @@ main{
     justify-content: space-between;
     align-items: center;
 }
+
+.perdeu li{
+    color: red;
+}
+
+.ganhou li{
+    color:green;
+}
