@@ -1,5 +1,8 @@
 import palavras from "./palavras"
 import { useState} from "react";
+import Jogo from "./Jogo";
+import Letras from "./Letras";
+import Chute from "./Chute";
 import imgInicial from "./assets/forca0.png"
 import img1 from "./assets/forca1.png"
 import img2 from "./assets/forca2.png"
@@ -8,8 +11,6 @@ import img4 from "./assets/forca4.png"
 import img5 from "./assets/forca5.png"
 import img6 from "./assets/forca6.png"
 
-const alfabeto = ["A","B","C","D","E","F","G","H","I","J","K","L","M",
-                    "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 let arrayPalavra = [];
 let arrayEstadoJogo = [];
 let inicioDoJogo = true;
@@ -41,7 +42,7 @@ export default function App(){
       incluiTecla([letra,...teclasClicadas])
     }
    
-    function RenderizaTeclas(props) {
+    const RenderizaTeclas = (props) => {
         const {letra, indice} = props;
         function verificaTecla(tecla){
             if(!teclasClicadas.includes(tecla)){
@@ -70,7 +71,7 @@ export default function App(){
         );
       }
     
-    function iniciaJogo(){
+    const iniciaJogo =() => {
       inicioDoJogo = false;
       numErros = 0
       arrayEstadoJogo = [];
@@ -86,7 +87,7 @@ export default function App(){
       mudaEstadoInput(true)
     }
 
-    function CarregaImagem(){
+    const CarregaImagem = () => {
       switch(numErros){
         case 0:
           return <img data-identifier="game-image" src={imgInicial} alt="Layout inicial jogo da forca"/>
@@ -105,7 +106,7 @@ export default function App(){
       }
     }
 
-    function CarregaPalavra(){
+    const CarregaPalavra = () => {
       let rows = [];
       for (let i = 0; i < arrayPalavra.length; i++) {
         const letraLimpa = arrayPalavra[i].normalize('NFD').replace(/[\u0300-\u036f]/g, "")
@@ -128,7 +129,7 @@ export default function App(){
     }
 
 
-    function verificaChute(){
+ const verificaChute = () => {
       fimDoJogo()
       if(arrayPalavra.join("") === valorChutado)
         mostraResultado("ganhou")
@@ -141,32 +142,19 @@ export default function App(){
 
     return (
       <main>
-        <section className="jogo">
-          <CarregaImagem />
-
-          <button data-identifier="choose-word" onClick={iniciaJogo}>
-            Escolher Palavra
-          </button>
-          {inicioDoJogo === false ? <CarregaPalavra /> : <ul></ul>}
-        </section>
-        <section className="teclas">
-          <ul>
-            {alfabeto.map((letra, index) => (
-              <RenderizaTeclas letra={letra} indice={index} />
-            ))}
-          </ul>
-        </section>
-        <section className="chute">
-          Já sei a palavra!
-          <input
-            data-identifier="type-guess"
-            type="text"
-            value={valorChutado}
-            onChange={(e) => escreveChute(e.target.value)}
-            disabled={desabilitaInput}
-          ></input>
-          <button data-identifier="guess-button" onClick={verificaChute}>Chutar</button>
-        </section>
+        <Jogo 
+        CarregaImagem={CarregaImagem}
+        iniciaJogo={iniciaJogo}
+        inicioDoJogo={inicioDoJogo}
+        CarregaPalavra={CarregaPalavra}
+        />
+        <Letras RenderizaTeclas={RenderizaTeclas} />
+        <Chute
+          valorChutado={valorChutado}
+          escreveChute={escreveChute}
+          desabilitaInput={desabilitaInput}
+          verificaChute = {verificaChute} 
+        />
       </main>
     );
 }
