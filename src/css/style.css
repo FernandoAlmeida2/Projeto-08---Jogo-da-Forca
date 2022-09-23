@@ -30,7 +30,7 @@ main{
 
 .jogo ul{
     display:flex;
-    position:fixed;
+    position:absolute;
     right:30vw;
     bottom: 16vw;
 }
