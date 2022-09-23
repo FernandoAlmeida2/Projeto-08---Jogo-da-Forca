@@ -39,7 +39,7 @@ function letraEstaNoArray(array, letra) {
     .join("")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .includes(letra);
+    .includes(letra.normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
 }
 
 export default function App() {
