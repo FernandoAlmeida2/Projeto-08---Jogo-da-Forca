@@ -15,7 +15,7 @@ import GlobalStyle from "./GlobalStyles"
 
 let arrayPalavra = []
 let arrayEstadoJogo = []
-let inicioDoJogo = true
+let jogoIniciou = false
 let numErros = 0
 
 // função que gera números aleatórios no intervalo [-0.5,0.5]
@@ -55,7 +55,7 @@ export default function App() {
   const RenderizaTeclas = (props) => {
     const { letra, indice } = props;
     function verificaTecla(tecla) {
-      if (!teclasClicadas.includes(tecla)) {
+      if (!teclasClicadas.includes(tecla) && jogoIniciou) {
         if (!letraEstaNoArray(arrayPalavra, tecla)) numErros++
         addTecla(tecla)
       }
@@ -64,7 +64,7 @@ export default function App() {
     function teclaDesabilitada(tecla) {
       return (
         teclasClicadas.includes(tecla.toLowerCase()) ||
-        inicioDoJogo === true ||
+        jogoIniciou === false ||
         resultado !== ""
       )
     }
@@ -83,7 +83,7 @@ export default function App() {
   }
 
   const iniciaJogo = () => {
-    inicioDoJogo = false
+    jogoIniciou = true
     numErros = 0
     arrayEstadoJogo = []
     incluiTecla([])
@@ -161,7 +161,7 @@ export default function App() {
       <Jogo
         CarregaImagem={CarregaImagem}
         iniciaJogo={iniciaJogo}
-        inicioDoJogo={inicioDoJogo}
+        jogoIniciou={jogoIniciou}
         CarregaPalavra={CarregaPalavra}
       />
       <Letras RenderizaTeclas={RenderizaTeclas} />
