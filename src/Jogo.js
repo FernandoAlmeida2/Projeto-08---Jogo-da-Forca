@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export default function Jogo(props){
-    const {iniciaJogo, inicioDoJogo, CarregaImagem, CarregaPalavra} = props;
+    const {iniciaJogo, jogoIniciou, CarregaImagem, CarregaPalavra} = props;
     return(
         <SectionJogo>
           <CarregaImagem />
@@ -9,7 +9,7 @@ export default function Jogo(props){
           <button data-identifier="choose-word" onClick={iniciaJogo}>
             Escolher Palavra
           </button>
-          {inicioDoJogo === false ? <CarregaPalavra /> : <ul></ul>}
+          {jogoIniciou === true ? <CarregaPalavra /> : <ul></ul>}
         </SectionJogo>
     )
 }
