@@ -83,6 +83,7 @@ export default function App() {
   }
 
   const iniciaJogo = () => {
+    jogoIniciou = true
     numErros = 0
     arrayEstadoJogo = []
     incluiTecla([])
