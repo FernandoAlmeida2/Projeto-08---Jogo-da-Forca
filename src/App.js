@@ -94,6 +94,7 @@ export default function App() {
   }
 
   function fimDoJogo() {
+    jogoIniciou = false
     escreveChute("")
     mudaEstadoInput(true)
   }
