@@ -55,7 +55,7 @@ export default function App() {
   const RenderizaTeclas = (props) => {
     const { letra, indice } = props;
     function verificaTecla(tecla) {
-      if (!teclasClicadas.includes(tecla) && jogoIniciou && resultado === "") {
+      if (!teclaDesabilitada(tecla)) {
         if (!letraEstaNoArray(arrayPalavra, tecla)) numErros++
         addTecla(tecla)
       }
