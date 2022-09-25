@@ -55,7 +55,7 @@ export default function App() {
   const RenderizaTeclas = (props) => {
     const { letra, indice } = props;
     function verificaTecla(tecla) {
-      if (!teclasClicadas.includes(tecla) && jogoIniciou) {
+      if (!teclasClicadas.includes(tecla) && jogoIniciou && resultado === "") {
         if (!letraEstaNoArray(arrayPalavra, tecla)) numErros++
         addTecla(tecla)
       }
@@ -83,7 +83,6 @@ export default function App() {
   }
 
   const iniciaJogo = () => {
-    jogoIniciou = true
     numErros = 0
     arrayEstadoJogo = []
     incluiTecla([])
@@ -94,7 +93,6 @@ export default function App() {
   }
 
   function fimDoJogo() {
-    jogoIniciou = false
     escreveChute("")
     mudaEstadoInput(true)
   }
